@@ -6,7 +6,7 @@
 - [x] Open/Edit Product
 - [x] Delete Product
 - [x] Upload Photos
-- [ ] Search
+- [x] Search
 - [ ] Delete Photos
 - [ ] Specifications
 

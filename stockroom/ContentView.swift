@@ -15,7 +15,8 @@ struct ContentView: View {
     @Query private var products: [Product]
 
     @State private var selectedProducts: Set<Product> = []
-    @State var editMode: EditMode = .inactive
+    @State private var editMode: EditMode = .inactive
+    @State private var searchText: String = ""
 
     private func deleteProduct(at offsets: IndexSet) {
         for index in offsets {
@@ -44,34 +45,38 @@ struct ContentView: View {
         }
     }
 
+    var filteredProducts: [Product] {
+        if searchText.isEmpty {
+            return products
+        } else {
+            return products.filter { $0.name.contains(searchText) }
+        }
+    }
 
     var body: some View {
         NavigationView {
-            VStack {
-                Spacer()
-                NavigationLink(destination: ProductView()) {
-                    Text("Add Product")
-                }
-                .buttonStyle(.borderedProminent)
-                .tint(.blue)
-
-                List(selection: $selectedProducts) {
-                    ForEach(products, id: \.self) { product in
-                        NavigationLink(destination: ProductView(product: product)) {
-                                HStack {
-                                    Text(product.name)
-                                    Spacer()
-                                    Text(product.price, format: .currency(code: "PHP"))
-                                    Text("QTY: \(String(product.stock))")
-                                        .frame(width: 72, alignment: .leading)
-                                        .padding(.leading, 8)
-                                }
+            ZStack {
+                VStack {
+                    List(selection: $selectedProducts) {
+                        ForEach(filteredProducts, id: \.self) { product in
+                            NavigationLink(destination: ProductView(product: product)) {
+                                    HStack {
+                                        Text(product.name)
+                                        Spacer()
+                                        Text(product.price, format: .currency(code: "PHP"))
+                                        Text("QTY: \(String(product.stock))")
+                                            .frame(width: 72, alignment: .leading)
+                                            .padding(.leading, 8)
+                                    }
+                            }
                         }
+                        .onDelete(perform: editMode == .active ? nil : handleDelete)
+    //                    .onDelete(perform: deleteProduct)
+    //                    .deleteDisabled(editMode == .active)
                     }
-                    .onDelete(perform: editMode == .active ? nil : handleDelete)
-//                    .onDelete(perform: deleteProduct)
-//                    .deleteDisabled(editMode == .active)
                 }
+                
+                FloatingAddButton()
             }
             .navigationBarTitle("Home")
             .toolbar {
@@ -88,6 +93,30 @@ struct ContentView: View {
                 }
             }
             .environment(\.editMode, $editMode)
+        }
+        .searchable(text: $searchText) {
+        }
+    }
+}
+
+struct FloatingAddButton: View {
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                
+                NavigationLink(destination: ProductView()) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 24))
+                        .foregroundColor(.white)
+                }
+                .frame(width: 60, height: 60)
+                .background(.blue)
+                .cornerRadius(30)
+                .shadow(radius: 12)
+                .offset(x: -24, y: -8)
+            }
         }
     }
 }
@@ -284,7 +313,7 @@ let previewContainer: ModelContainer = {
         Task { @MainActor in
             let context = container.mainContext
 
-            for _ in 0..<10 {
+            for _ in 0..<20 {
                 let product = Product.createRandom()
                 context.insert(product)
             }
