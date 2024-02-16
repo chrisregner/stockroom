@@ -7,7 +7,7 @@
 - [x] Delete Product
 - [x] Upload Photos
 - [x] Search
-- [ ] Delete Photos
+- [x] Delete Photos
 - [ ] Specifications
 
 ## Other Next Release Requirements

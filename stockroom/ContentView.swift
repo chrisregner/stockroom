@@ -295,13 +295,44 @@ struct PhotosSection: View {
                 }
 
                 ForEach(photo.indices, id: \.self) { index in
-                    Image(data: photo[index])?
-                        .resizable()
-                        .frame(width: 120, height: 120)
+                    
+                    NavigationLink(
+                        destination: PhotoView(index: index, photos: $photo)
+                    ) {
+                        Image(data: photo[index])?
+                            .resizable()
+                            .frame(width: 120, height: 120)
+                    }
                 }
             }
             .padding()
         }
+    }
+}
+
+struct PhotoView: View {
+    var index: Int
+    @Binding var photo: [Data]
+    @Environment(\.presentationMode) var presentationMode
+    
+    init(index: Int, photos: Binding<[Data]>) {
+        self._photo = photos
+        self.index = index
+    }
+    
+    var body: some View {
+        Image(data: photo[index])?
+            .resizable()
+            .aspectRatio(UIImage(data: photo[index])!.size, contentMode: .fill)
+            .toolbar {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button("Delete") {
+                        photo.remove(at: index)
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                    .foregroundColor(.red)
+                }
+            }
     }
 }
 
