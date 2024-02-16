@@ -12,12 +12,31 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     
     @Query private var products: [Product]
+    
+    @State private var selectedProducts: Set<Product> = []
+    @State var editMode: EditMode = .inactive
 
     private func deleteProduct(at offsets: IndexSet) {
         for index in offsets {
             modelContext.delete(products[index])
         }
     }
+    
+    private func deleteSelectedProducts() {
+        guard !selectedProducts.isEmpty else { return }
+
+        for product in selectedProducts {
+            modelContext.delete(product)
+        }
+    }
+    
+    private func handleDeleteSelected() {
+        withAnimation {
+            deleteSelectedProducts()
+            editMode = .inactive
+        }
+    }
+
     
     var body: some View {
         NavigationView {
@@ -26,12 +45,11 @@ struct ContentView: View {
                 NavigationLink(destination: ProductView()) {
                     Text("Add Product")
                 }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.blue)
-                Spacer()
+                .buttonStyle(.borderedProminent)
+                .tint(.blue)
 
-                List {
-                    ForEach(products) { product in
+                List(selection: $selectedProducts) {
+                    ForEach(products, id: \.self) { product in
                         NavigationLink(destination: ProductView(product: product)) {
                                 HStack {
                                     Text(product.name)
@@ -43,10 +61,26 @@ struct ContentView: View {
                                 }
                         }
                     }
-                    .onDelete(perform: deleteProduct)
+                    .onDelete(perform: editMode == .active ? nil : deleteProduct)
+//                    .onDelete(perform: deleteProduct)
+//                    .deleteDisabled(editMode == .active)
                 }
             }
             .navigationBarTitle("Home")
+            .toolbar {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    EditButton()
+                }
+                
+                ToolbarItemGroup(placement: .bottomBar) {
+                    if editMode == .active {
+                        Button("Delete Selected", action: handleDeleteSelected)
+                        .buttonStyle(.borderedProminent)
+                        .tint(.red)
+                    }
+                }
+            }
+            .environment(\.editMode, $editMode)
         }
     }
 }
