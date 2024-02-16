@@ -7,12 +7,13 @@
 
 import SwiftUI
 import SwiftData
+import PhotosUI
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    
+
     @Query private var products: [Product]
-    
+
     @State private var selectedProducts: Set<Product> = []
     @State var editMode: EditMode = .inactive
 
@@ -21,13 +22,13 @@ struct ContentView: View {
             modelContext.delete(products[index])
         }
     }
-    
+
     private func handleDelete(at offsets: IndexSet) {
         withAnimation {
             deleteProduct(at: offsets)
         }
     }
-    
+
     private func deleteSelectedProducts() {
         guard !selectedProducts.isEmpty else { return }
 
@@ -35,7 +36,7 @@ struct ContentView: View {
             modelContext.delete(product)
         }
     }
-    
+
     private func handleDeleteSelected() {
         withAnimation {
             deleteSelectedProducts()
@@ -43,7 +44,7 @@ struct ContentView: View {
         }
     }
 
-    
+
     var body: some View {
         NavigationView {
             VStack {
@@ -77,7 +78,7 @@ struct ContentView: View {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     EditButton()
                 }
-                
+
                 ToolbarItemGroup(placement: .bottomBar) {
                     if editMode == .active {
                         Button("Delete Selected", action: handleDeleteSelected)
@@ -101,6 +102,7 @@ struct ProductView: View {
     @State private var price: Double
     @State private var stock: Int
     @State private var description: String
+    @State private var photos: [Data]
 
     init(product: Product? = nil) {
         self.product = product
@@ -108,6 +110,7 @@ struct ProductView: View {
         _price = State(initialValue: product?.price ?? 0.0)
         _stock = State(initialValue: product?.stock ?? 0)
         _description = State(initialValue: product?.productDescription ?? "")
+        _photos = State(initialValue: product?.photos ?? [])
     }
 
     @State private var isNameEmptyAlertPresented = false
@@ -125,7 +128,8 @@ struct ProductView: View {
                 name: name,
                 price: price,
                 stock: stock,
-                productDescription: description
+                productDescription: description,
+                photos: photos
             )
 
             modelContext.insert(newItem)
@@ -138,6 +142,7 @@ struct ProductView: View {
         product.price = price
         product.stock = stock
         product.productDescription = description
+        product.photos = photos
     }
 
     private func save() {
@@ -159,6 +164,8 @@ struct ProductView: View {
 
     var body: some View {
         VStack {
+            PhotosSection(photos: $photos)
+
             Form {
                 VStack(alignment: .leading) {
                     Text("Product Name:")
@@ -222,6 +229,53 @@ struct ProductView: View {
     }
 }
 
+struct PhotosSection: View {
+    @State var photosPickerItems: [PhotosPickerItem] = []
+    @Binding var photo: [Data]
+
+    init(photos: Binding<[Data]>) {
+        self._photo = photos
+    }
+
+    var body: some View {
+        ScrollView(.horizontal) {
+            HStack() {
+                PhotosPicker(
+                    selection: $photosPickerItems,
+                    matching: .images
+                ) {
+                    VStack(spacing: 8) {
+                        Image(systemName: "photo")
+                        Text("Add Photo")
+                        .padding(.horizontal)
+                    }
+                    .frame(width: 120, height: 120)
+                    .foregroundStyle(Color.white)
+                    .background(Color.blue)
+                }
+                .onChange(of: photosPickerItems) {_, newPhotos in
+                    Task {
+                        for newPhoto in newPhotos {
+                            if let data = try? await newPhoto.loadTransferable(
+                                type: Data.self
+                            ) {
+                                self.photo.append(data)
+                            }
+                        }
+                    }
+                }
+
+                ForEach(photo.indices, id: \.self) { index in
+                    Image(data: photo[index])?
+                        .resizable()
+                        .frame(width: 120, height: 120)
+                }
+            }
+            .padding()
+        }
+    }
+}
+
 let previewContainer: ModelContainer = {
     do {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
@@ -245,6 +299,6 @@ let previewContainer: ModelContainer = {
 #Preview {
     ContentView()
         .modelContainer(previewContainer)
-//    AddProductView()
+//    ProductView()
 //        .modelContainer(for: Product.self, inMemory: true)
 }

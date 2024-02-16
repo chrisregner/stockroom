@@ -12,9 +12,11 @@
 		2BBB562A2B7EA820009CADF3 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBB56292B7EA820009CADF3 /* Product.swift */; };
 		2BBB562C2B7EA822009CADF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBB562B2B7EA822009CADF3 /* Assets.xcassets */; };
 		2BBB562F2B7EA822009CADF3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBB562E2B7EA822009CADF3 /* Preview Assets.xcassets */; };
+		2BD508152B7FEB5900987627 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD508142B7FEB5900987627 /* Image.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B8B7EE62B7F62430068A191 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2BBB56222B7EA820009CADF3 /* stockroom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stockroom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBB56252B7EA820009CADF3 /* stockroomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stockroomApp.swift; sourceTree = "<group>"; };
 		2BBB56272B7EA820009CADF3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -23,6 +25,7 @@
 		2BBB562E2B7EA822009CADF3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2BBB56302B7EA822009CADF3 /* stockroom.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = stockroom.entitlements; sourceTree = "<group>"; };
 		2BBB56312B7EA822009CADF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2BD508142B7FEB5900987627 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +42,7 @@
 		2BBB56192B7EA820009CADF3 = {
 			isa = PBXGroup;
 			children = (
+				2B8B7EE62B7F62430068A191 /* README.md */,
 				2BBB56242B7EA820009CADF3 /* stockroom */,
 				2BBB56232B7EA820009CADF3 /* Products */,
 			);
@@ -62,6 +66,7 @@
 				2BBB56302B7EA822009CADF3 /* stockroom.entitlements */,
 				2BBB56312B7EA822009CADF3 /* Info.plist */,
 				2BBB562D2B7EA822009CADF3 /* Preview Content */,
+				2BD508142B7FEB5900987627 /* Image.swift */,
 			);
 			path = stockroom;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BBB56282B7EA820009CADF3 /* ContentView.swift in Sources */,
+				2BD508152B7FEB5900987627 /* Image.swift in Sources */,
 				2BBB562A2B7EA820009CADF3 /* Product.swift in Sources */,
 				2BBB56262B7EA820009CADF3 /* stockroomApp.swift in Sources */,
 			);
