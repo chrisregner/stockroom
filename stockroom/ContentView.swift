@@ -195,37 +195,43 @@ struct ProductView: View {
         VStack {
             PhotosSection(photos: $photos)
 
-            Form {
-                VStack(alignment: .leading) {
-                    Text("Product Name:")
-                    TextField("Enter product name", text: $name)
-                        .padding()
-                        .border(Color.gray, width: 1)
+            VStack(alignment: .leading) {
+                Text("Product Name:")
+                TextField("Enter product name", text: $name)
+                    .padding()
+                    .border(Color.gray, width: 1)
 
-                    Text("Price:")
-                    TextField(
-                        "Enter price",
-                        value: $price,
-                        format: .currency(code: "PHP")
-                    )
-                        .keyboardType(.decimalPad)
-                        .padding()
-                        .border(Color.gray, width: 1)
+                Text("Price:")
+                TextField(
+                    "Enter price",
+                    value: $price,
+                    format: .currency(code: "PHP")
+                )
+                    .keyboardType(.decimalPad)
+                    .padding()
+                    .border(Color.gray, width: 1)
 
-                    Text("Stock:")
-                    TextField("Enter stock", value: $stock, formatter: integerFormatter)
-                        .keyboardType(.numberPad)
-                        .padding()
-                        .border(Color.gray, width: 1)
+                Text("Stock:")
+                TextField("Enter stock", value: $stock, formatter: integerFormatter)
+                    .keyboardType(.numberPad)
+                    .padding()
+                    .border(Color.gray, width: 1)
 
-                    Text("Description:")
-                    TextEditor(text: $description)
-                        .frame(height: 120)
-                        .padding()
-                        .border(Color.gray, width: 1)
+                ControlGroup {
+                    Button("-10") { stock = max(stock - 10, 0) }
+                    Button("-1") { stock = max(stock - 1, 0) }
+                    Button("+1") { stock = max(stock + 1, 0) }
+                    Button("+10") { stock = max(stock + 10, 0) }
                 }
+                
+                Text("Description:")
+                TextEditor(text: $description)
+                    .frame(height: 120)
+                    .padding()
+                    .border(Color.gray, width: 1)
             }
-
+            .padding()
+            
             Spacer()
 
             HStack {
@@ -357,8 +363,8 @@ let previewContainer: ModelContainer = {
 }()
 
 #Preview {
-    ContentView()
-        .modelContainer(previewContainer)
-//    ProductView()
-//        .modelContainer(for: Product.self, inMemory: true)
+//    ContentView()
+//        .modelContainer(previewContainer)
+    ProductView()
+        .modelContainer(for: Product.self, inMemory: true)
 }

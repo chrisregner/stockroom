@@ -11,7 +11,7 @@
 - [ ] Specifications
 
 ## Other Next Release Requirements
-- [ ] Better Stock Actions (increment/decrement)
+- [x] Better Stock Actions (increment/decrement)
 
 ## Backlog
 - [ ] Suggestions
