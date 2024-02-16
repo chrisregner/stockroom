@@ -22,6 +22,12 @@ struct ContentView: View {
         }
     }
     
+    private func handleDelete(at offsets: IndexSet) {
+        withAnimation {
+            deleteProduct(at: offsets)
+        }
+    }
+    
     private func deleteSelectedProducts() {
         guard !selectedProducts.isEmpty else { return }
 
@@ -61,7 +67,7 @@ struct ContentView: View {
                                 }
                         }
                     }
-                    .onDelete(perform: editMode == .active ? nil : deleteProduct)
+                    .onDelete(perform: editMode == .active ? nil : handleDelete)
 //                    .onDelete(perform: deleteProduct)
 //                    .deleteDisabled(editMode == .active)
                 }
@@ -135,18 +141,20 @@ struct ProductView: View {
     }
 
     private func save() {
-        if name.isEmpty {
-            isNameEmptyAlertPresented = true
-            return
-        }
+        withAnimation {
+            if name.isEmpty {
+                isNameEmptyAlertPresented = true
+                return
+            }
 
-        if (self.product != nil) {
-            updateProduct()
-        } else {
-            addProduct()
-        }
+            if (self.product != nil) {
+                updateProduct()
+            } else {
+                addProduct()
+            }
 
-        self.presentationMode.wrappedValue.dismiss()
+            self.presentationMode.wrappedValue.dismiss()
+        }
     }
 
     var body: some View {
