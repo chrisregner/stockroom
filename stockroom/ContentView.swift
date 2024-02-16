@@ -9,8 +9,16 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
+    
     @Query private var products: [Product]
 
+    private func deleteProduct(at offsets: IndexSet) {
+        for index in offsets {
+            modelContext.delete(products[index])
+        }
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -35,6 +43,7 @@ struct ContentView: View {
                                 }
                         }
                     }
+                    .onDelete(perform: deleteProduct)
                 }
             }
             .navigationBarTitle("Home")
