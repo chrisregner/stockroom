@@ -64,20 +64,19 @@ final class Product: Identifiable {
         )
     }
     
-//    TODO: this is not working
     private static func generateRandomPhotos() -> [Data] {
         var photos: [Data] = []
         
         #if canImport(UIKit)
-        for _ in 0..<3 {
-            if let randomImage = UIImage(named: "randomImage"),
+        for index in 0...1 {
+            if let randomImage = UIImage(named: "cat\(String(index + 1))"),
                let imageData = randomImage.jpegData(compressionQuality: 0.8) {
                 photos.append(imageData)
             }
         }
         #elseif canImport(AppKit)
-        for _ in 0..<3 {
-            if let randomImage = NSImage(named: "randomImage"),
+        for _ in 0...1 {
+            if let randomImage = NSImage(named: "cat\(String(index + 1))"),
                let imageData = randomImage.tiffRepresentation {
                 photos.append(imageData)
             }

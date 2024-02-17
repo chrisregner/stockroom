@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B3292B72B808F6B00DC2FBC /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3292B62B808F6B00DC2FBC /* ProductView.swift */; };
+		2B3292B92B808FD900DC2FBC /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3292B82B808FD900DC2FBC /* PhotoView.swift */; };
+		2B3292BB2B80968C00DC2FBC /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3292BA2B80968C00DC2FBC /* Array.swift */; };
 		2BBB56262B7EA820009CADF3 /* stockroomApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBB56252B7EA820009CADF3 /* stockroomApp.swift */; };
 		2BBB56282B7EA820009CADF3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBB56272B7EA820009CADF3 /* ContentView.swift */; };
 		2BBB562A2B7EA820009CADF3 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBB56292B7EA820009CADF3 /* Product.swift */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B3292B62B808F6B00DC2FBC /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		2B3292B82B808FD900DC2FBC /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
+		2B3292BA2B80968C00DC2FBC /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		2B8B7EE62B7F62430068A191 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2BBB56222B7EA820009CADF3 /* stockroom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stockroom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBB56252B7EA820009CADF3 /* stockroomApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stockroomApp.swift; sourceTree = "<group>"; };
@@ -39,6 +45,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B6A23F12B80AA4500F55A1D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2BBB56272B7EA820009CADF3 /* ContentView.swift */,
+				2B3292B62B808F6B00DC2FBC /* ProductView.swift */,
+				2B3292B82B808FD900DC2FBC /* PhotoView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2B6A23F22B80AA5B00F55A1D /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				2B3292BA2B80968C00DC2FBC /* Array.swift */,
+				2BD508142B7FEB5900987627 /* Image.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		2B6A23F32B80AAA200F55A1D /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				2BBB56292B7EA820009CADF3 /* Product.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		2BBB56192B7EA820009CADF3 = {
 			isa = PBXGroup;
 			children = (
@@ -59,14 +92,14 @@
 		2BBB56242B7EA820009CADF3 /* stockroom */ = {
 			isa = PBXGroup;
 			children = (
+				2B6A23F32B80AAA200F55A1D /* Entities */,
+				2B6A23F22B80AA5B00F55A1D /* Types */,
+				2B6A23F12B80AA4500F55A1D /* Views */,
 				2BBB56252B7EA820009CADF3 /* stockroomApp.swift */,
-				2BBB56272B7EA820009CADF3 /* ContentView.swift */,
-				2BBB56292B7EA820009CADF3 /* Product.swift */,
 				2BBB562B2B7EA822009CADF3 /* Assets.xcassets */,
 				2BBB56302B7EA822009CADF3 /* stockroom.entitlements */,
 				2BBB56312B7EA822009CADF3 /* Info.plist */,
 				2BBB562D2B7EA822009CADF3 /* Preview Content */,
-				2BD508142B7FEB5900987627 /* Image.swift */,
 			);
 			path = stockroom;
 			sourceTree = "<group>";
@@ -149,8 +182,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B3292B72B808F6B00DC2FBC /* ProductView.swift in Sources */,
 				2BBB56282B7EA820009CADF3 /* ContentView.swift in Sources */,
+				2B3292BB2B80968C00DC2FBC /* Array.swift in Sources */,
 				2BD508152B7FEB5900987627 /* Image.swift in Sources */,
+				2B3292B92B808FD900DC2FBC /* PhotoView.swift in Sources */,
 				2BBB562A2B7EA820009CADF3 /* Product.swift in Sources */,
 				2BBB56262B7EA820009CADF3 /* stockroomApp.swift in Sources */,
 			);
@@ -287,6 +323,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"stockroom/Preview Content\"";
+				DEVELOPMENT_TEAM = G6632X38D3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = stockroom/Info.plist;
@@ -317,6 +354,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"stockroom/Preview Content\"";
+				DEVELOPMENT_TEAM = G6632X38D3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = stockroom/Info.plist;
